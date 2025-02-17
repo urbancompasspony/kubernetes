@@ -1,0 +1,15 @@
+
+Configure Ubuntu Server on all machines.
+Set everything up-to-date
+Install essential packages
+Remove not necessary packages
+The same as normal.
+
+Set a static IP Address for everyone
+
+Copy SSH keys from the Control Plane to other Nodes:
+
+$ ssh-keygen
+$ ssh-copy-id user@server
+
+Check if SSH from Control Plane reachs Nodes.
