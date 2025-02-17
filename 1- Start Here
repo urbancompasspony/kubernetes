@@ -24,7 +24,7 @@ Kubernetes Design: Kubernetes is designed to work with no swapping activity. It 
 Config CGROUPS; if a FATA[0000] failed to find memory cgroup (v2) error surfaces during the installation of k3s
 
 # 1. Open the cmdline.txt file
-sudo nano /boot/cmdline.txt
+sudo nano /boot/firmware/cmdline.txt
 
 #2. Add below into THE END of the current line
 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
