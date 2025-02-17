@@ -3,4 +3,4 @@ Run on MASTER node:
 
 sudo kubectl apply -n portainer -f https://raw.githubusercontent.com/portainer/k8s/master/deploy/manifests/portainer/portainer.yaml
 
-Wait some minutes and go to the MASTER NODE IP!
+Wait some minutes and go to the MASTER_NODE_IP:30777
