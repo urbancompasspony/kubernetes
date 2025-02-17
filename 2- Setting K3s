@@ -15,5 +15,5 @@ server: This is telling k3s to run in server mode (as opposed to agent mode). In
 —cluster-init: This flag instructs k3s to initialize a new Kubernetes cluster. If this flag is not provided, k3s will join an existing cluster if one is available.
 Once installed, the k3s configuration should be located in /etc/rancher/k3s/k3s.yaml
 
-Install k8s lens: (appimage)
-https://k8slens.dev/
+Install RANCHER on your machine!
+K3s is an orchestrator, so if master node goes offline, you can decide if stop or continue processes on another node.
