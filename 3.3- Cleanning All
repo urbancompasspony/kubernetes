@@ -1,3 +1,6 @@
+Remove nodes!
+sudo kubectl delete node NODE-NAME
+
 >>>
 On Rancher Server:
 Just kill and remove the container called rancher-kind-control-plane
