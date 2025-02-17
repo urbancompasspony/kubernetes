@@ -31,3 +31,8 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 
 curl -sfL https://get.k3s.io | K3S_URL=https://192.168.1.85:6443 \
   K3S_TOKEN="" sh -
+
+On Master:
+sudo kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user administrador
+
+Now try to add to Rancher for managment!
