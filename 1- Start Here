@@ -13,3 +13,21 @@ $ ssh-keygen
 $ ssh-copy-id user@server
 
 Check if SSH from Control Plane reachs Nodes.
+
+DISABLE SWAP, why?
+
+Memory Management: Kubernetes efficiently manages and allocates resources, including memory. Allowing an operating system to swap can interrupt Kubernetes’ memory management process.
+Performance Issues: Swapping can lead to performance degradation. When Kubernetes needs to access something that has been swapped to disk, it must wait for it to be loaded back into memory, causing delays.
+Predictability: Disabling swap helps ensure predictable performance, as it removes the chance of the system swapping out Kubernetes’ processes.
+Kubernetes Design: Kubernetes is designed to work with no swapping activity. It assumes that applications are memory-resident, which means it expects them to stay in memory all the time.
+
+Config CGROUPS; if a FATA[0000] failed to find memory cgroup (v2) error surfaces during the installation of k3s
+
+# 1. Open the cmdline.txt file
+sudo nano /boot/cmdline.txt
+
+#2. Add below into THE END of the current line
+cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
+
+# 3. Save the file and reboot
+sudo reboot
