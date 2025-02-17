@@ -4,7 +4,7 @@ Just kill and remove the container called rancher-kind-control-plane
 
 >>>
 On Nodes run:
-sudo /usr/local/bin/k3s-uninstall.sh
+/usr/local/bin/k3s-uninstall.sh
 
 and remove:
 
