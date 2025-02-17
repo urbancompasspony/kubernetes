@@ -1,0 +1,14 @@
+
+Mode 1:
+
+Cluster Create Custom
+Set Cluster Name
+
+Kubernetes k3s 1.31
+Security None (= Default)
+
+Keep all buttons default.
+Create.
+
+Mode 2:
+Follow 3.1
