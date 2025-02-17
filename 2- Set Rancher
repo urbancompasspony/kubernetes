@@ -1,0 +1,9 @@
+
+Install Rancher on another Machine to management.
+
+docker logs rancher-k38s 2>&1 | grep "Bootstrap Password:"
+
+Wait 2 minutes do WEB goes up.
+Access: https://172.20.0.X/
+
+Follow everything on screen to create a login account.
