@@ -3,6 +3,22 @@ Server - Master:
 
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --disable=traefik --flannel-backend=host-gw --tls-san=172.20.0.X --bind-address=172.20.0.X --advertise-address=172.20.0.X --node-ip=172.20.0.X --cluster-init" sh -s -
 
+>>>
+Nodes - Workers:
+
+sudo cat /var/lib/rancher/k3s/server/node-token
+
+# Execute this to install the nodes
+
+curl -sfL https://get.k3s.io | K3S_URL=https://192.168.1.85:6443 \
+  K3S_TOKEN="" sh -
+
+On Master:
+sudo kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user administrador
+
+
+
+>>>
 K3s parameters examination:
 
 server: This is telling k3s to run in server mode (as opposed to agent mode). In server mode, k3s will start up and manage Kubernetes master components.
@@ -21,18 +37,3 @@ You can repeat this flag to add more than one SAN. The value 192.168.1.85 is an 
 —node-ip=192.168.1.85: This defines the IP that should be used for Kubernetes services on the node.
 
 —cluster-init: This flag instructs k3s to initialize a new Kubernetes cluster. If this flag is not provided, k3s will join an existing cluster if one is available.
-
->>>
-Nodes - Workers:
-
-sudo cat /var/lib/rancher/k3s/server/node-token
-
-# Execute this to install the nodes
-
-curl -sfL https://get.k3s.io | K3S_URL=https://192.168.1.85:6443 \
-  K3S_TOKEN="" sh -
-
-On Master:
-sudo kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user administrador
-
-Now try to add to Rancher for managment!
