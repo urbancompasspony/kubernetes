@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+name: hello-world
+spec:
+containers:
+    - name: hello
+    image: busybox  # Replace with your desired Docker image
+
+kubectl apply -f hello-world-pod.yaml
+
+kubectl delete pod hello-world
