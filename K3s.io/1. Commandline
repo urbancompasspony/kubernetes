@@ -8,22 +8,9 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 >>> >>> >>> >>> >>> >>> 
 Workers
 
-# Execute this to install the nodes as Multi-master
+# Execute this to install the nodes as Multi-master (ONE AT TIME!)
 
-curl -sfL https://get.k3s.io | K3S_TOKEN="" sh -s server --server https://172.20.0.X:6443
-
-
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --token XXX --disable=traefik --flannel-backend=host-gw --tls-san=172.20.0.Y --bind-address=172.20.0.Y --advertise-address=172.20.0.Y --node-ip=172.20.0.Y" sh -s -
-
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --token K10e43812beaad28a5e601bc357dcd06d98f5e60c4fba9f1052488c193201f18253::server:6ceed86d883d634e40f1f45a80f0b291 \
---disable=traefik --flannel-backend=host-gw \
---tls-san=172.20.0.61 --bind-address=172.20.0.61 --advertise-address=172.20.0.61 --node-ip=172.20.0.61" sh -s -
-
-
-
-sudo curl -sfL https://get.k3s.io | K3S_TOKEN="" sh -s - server --disable=traefik --flannel-backend=host-gw --tls-san=172.20.0.X --bind-address=172.20.0.X --advertise-address=172.20.0.X --node-ip=172.20.0.X
-
-
+curl -sfL https://get.k3s.io | K3S_TOKEN="" sh -s server --flannel-backend=host-gw --server https://172.20.0.X:6443
 
 Debug:
 journalctl -u k3s.service
