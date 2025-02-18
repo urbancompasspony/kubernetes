@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pihole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pihole
+  template:
+    metadata:
+      labels:
+        app: pihole
+    spec:
+      containers:
+      - name: pihole
+        image: pihole/pihole:latest
+        env:
+        - name: SERVERIP
+          value: "172.20.0.65"
+        - name: WEBPASSWORD
+          value: "admin"
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        - containerPort: 67
+        - containerPort: 53
+        volumeMounts:
+        - name: localtime
+          mountPath: /etc/localtime
+          readOnly: true
+        - name: etc-pihole
+          mountPath: /etc/pihole
+        - name: dnsmasq
+          mountPath: /etc/dnsmasq.d
+        - name: log-pihole
+          mountPath: /var/log/pihole
+        resources:
+          requests:
+            memory: "512Mi"
+      volumes:
+      - name: localtime
+        hostPath:
+          path: /etc/localtime
+          type: File
+      - name: etc-pihole
+        hostPath:
+          path: /srv/containers/pihole/etc/
+      - name: dnsmasq
+        hostPath:
+          path: /srv/containers/pihole/dnsmasq.d/
+      - name: log-pihole
+        hostPath:
+          path: /srv/containers/pihole/log/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pihole-service
+spec:
+  selector:
+    app: pihole
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30080
+  - name: https
+    protocol: TCP
+    port: 443
+    targetPort: 443
+    nodePort: 30443
+  type: NodePort
