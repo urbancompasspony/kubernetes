@@ -9,10 +9,15 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 Workers
 
 # Execute this to install the nodes as Multi-master
-sudo curl -sfL https://get.k3s.io | K3S_URL=https://MASTER:6443 \
-  K3S_TOKEN="" sh -s - server
 
-Role as Just Workers
+sudo curl -sfL https://get.k3s.io | K3S_TOKEN="" sh -s - server \
+    --server https://172.20.0.X:6443 \
+    --tls-san=172.20.0.X
+
+Debug:
+journalctl -u k3s.service
+
+for Just Workers
 sudo curl -sfL https://get.k3s.io | K3S_URL=https://MASTER:6443 \
   K3S_TOKEN="" sh -
 
