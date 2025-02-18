@@ -1,7 +1,7 @@
 >>> >>> >>> >>> >>> >>> 
 On Master
 
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --disable=traefik --flannel-backend=host-gw --tls-san=172.20.0.X --bind-address=172.20.0.X --advertise-address=172.20.0.X --node-ip=172.20.0.X --cluster-init" sh -s -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --disable=traefik --flannel-backend=host-gw --tls-san=172.20.0.X --bind-address=172.20.0.X --advertise-address=172.20.0.X --node-ip=172.20.0.X --cluster-init --write-kubeconfig-mode 644" sh -s - 
 
 sudo cat /var/lib/rancher/k3s/server/node-token
 
