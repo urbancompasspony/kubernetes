@@ -1,24 +1,21 @@
 
-sudo kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
+sudo mkdir -p /var/lib/rancher/k3s/server/manifests/
 
-sudo kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
-
-kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
-
-apiVersion: v1
-kind: ConfigMap
+cat << sudo EOF > /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
 metadata:
-  namespace: metallb-system
-  name: config
-data:
-  config: |
-    address-pools:
-    - name: default
-      protocol: layer2
-      addresses:
-      - 172.20.0.90-172.20.0.100
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    ports:
+       web:
+         exposedPort: 8088
+       websecure:
+         port: 8443
+         expose: true
+         exposedPort: 8443
+EOF
 
-sudo kubectl apply -f metallb-config.yaml
-
-Edit yaml:
-  type: LoadBalancer
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--https-listen-port 7443" sh -
