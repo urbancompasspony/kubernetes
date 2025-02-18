@@ -1,10 +1,21 @@
 
 Run on MASTER node:
 
+mkdir ~/.kube 2> /dev/null
+sudo k3s kubectl config view --raw > ".kube/config"
+chmod 600 ".kube/config"
+
+Copy .kube/config contents to /root/.kube/config on your machine!
+Run:
+sudo kubectl get nodes
+to confirm.
+
 sudo kubectl apply -n portainer -f https://raw.githubusercontent.com/portainer/k8s/master/deploy/manifests/portainer/portainer.yaml
 
 Wait SOME MINUTES \
 and go to the MASTER_NODE_IP:30777
+
+
 
 If you want to be able to run kubectl from your local computer and not from the cluster master node, then install kubectl on your local computer: https://kubernetes.io/docs/tasks/tools/install-kubectl/
 Then create the file ~/.kube/config on your local computer and paste the contents of the file cat /etc/rancher/k3s/k3s.yaml on your master node.
