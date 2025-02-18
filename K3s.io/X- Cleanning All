@@ -2,7 +2,7 @@ To only remove nodes!
 
 sudo kubectl get nodes
 sudo kubectl delete node NODE-NAME
-sudo kubectl drain <NOME_DO_NODE> --ignore-daemonsets --delete-local-data
+sudo kubectl drain <NOME_DO_NODE> --ignore-daemonsets
 sudo kubectl delete node <NOME_DO_NODE>
 
 >>> >>> >>>
