@@ -4,3 +4,86 @@ Run on MASTER node:
 sudo kubectl apply -n portainer -f https://raw.githubusercontent.com/portainer/k8s/master/deploy/manifests/portainer/portainer.yaml
 
 Wait some minutes and go to the MASTER_NODE_IP:30777
+
+
+
+pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: portainer-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /mnt/data/portainer
+
+pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: portainer-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+kubectl apply -f pv.yaml
+kubectl apply -f pvc.yaml
+
+curl -O https://raw.githubusercontent.com/portainer/k8s/master/deploy/manifests/portainer/portainer.yaml
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: portainer
+spec:
+  serviceName: "portainer"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: portainer
+  template:
+    metadata:
+      labels:
+        app: portainer
+    spec:
+      containers:
+      - name: portainer
+        image: portainer/portainer-ce:latest
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+        - name: portainer-data
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: portainer-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portainer
+spec:
+  ports:
+  - port: 9000
+    name: http
+  clusterIP: None
+  selector:
+    app: portainer
+
+kubectl apply -f portainer.yaml
+kubectl get statefulsets
+kubectl get pods
+kubectl get pvc
+
+Acesse o Portainer usando o IP do node e a porta configurada, por exemplo: http://<NODE_IP>:9000.
