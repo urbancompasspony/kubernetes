@@ -1,13 +1,17 @@
 To only remove nodes!
-sudo kubectl delete node NODE-NAME
 
->>>
+sudo kubectl get nodes
+sudo kubectl delete node NODE-NAME
+sudo kubectl drain <NOME_DO_NODE> --ignore-daemonsets --delete-local-data
+sudo kubectl delete node <NOME_DO_NODE>
+
+>>> >>> >>>
 On Rancher Server:
 sudo /usr/local/bin/k3s-uninstall.sh
 and remove:
 sudo rm -R /var/lib/rancher/; sudo rm -R /etc/rancher/
 
->>>
+>>> >>> >>>
 On Nodes run:
 sudo /usr/local/bin/k3s-agent-uninstall.sh
 and remove:
