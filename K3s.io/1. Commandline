@@ -12,20 +12,12 @@ Workers
 
 curl -sfL https://get.k3s.io | K3S_TOKEN="" sh -s server --flannel-backend=host-gw --server https://172.20.0.X:6443
 
-Debug:
-journalctl -u k3s.service
-
-for Just Workers
+for Just Workers (slow ones)
 sudo curl -sfL https://get.k3s.io | K3S_URL=https://MASTER:6443 \
   K3S_TOKEN="" sh -
 
->>> >>> >>> >>> >>> >>> 
-Back to Master
-
-Check Nodes:
-sudo kubectl get nodes
-
-sudo kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user administrador
+Debug:
+journalctl -u k3s.service
 
 >>> >>> >>> >>> >>> >>> 
 K3s parameters examination:
