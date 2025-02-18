@@ -12,7 +12,7 @@ Workers
 
 curl -sfL https://get.k3s.io | K3S_TOKEN="" sh -s server --flannel-backend=host-gw --server https://172.20.0.X:6443
 
-for Just Workers (slow ones)
+For SLOW WORKERS (RPi 3 - 1Gb RAM)
 sudo curl -sfL https://get.k3s.io | K3S_URL=https://MASTER:6443 \
   K3S_TOKEN="" sh -
 
