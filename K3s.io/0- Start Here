@@ -7,10 +7,7 @@ The same as normal.
 
 Set a static IP Address for everyone
 
-Check if SSH from Control Plane reachs Nodes.
-
 DISABLE SWAP, why?
-
 Memory Management: Kubernetes efficiently manages and allocates resources, including memory. Allowing an operating system to swap can interrupt Kubernetes’ memory management process.
 Performance Issues: Swapping can lead to performance degradation. When Kubernetes needs to access something that has been swapped to disk, it must wait for it to be loaded back into memory, causing delays.
 Predictability: Disabling swap helps ensure predictable performance, as it removes the chance of the system swapping out Kubernetes’ processes.
@@ -23,6 +20,9 @@ sudo nano /boot/firmware/cmdline.txt
 
 #2. Add below into THE END of the current line
 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
+
+Disable Firewall:
+sudo ufw disable
 
 # 3. Save the file and reboot
 sudo reboot
