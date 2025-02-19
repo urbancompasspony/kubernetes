@@ -2,7 +2,7 @@
 On Master
 
 netk3s="172.20.0.X"
-sudo curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --https-listen-port 7443 --disable=traefik --flannel-backend=host-gw --tls-san=$netk3s --bind-address=$netk3s --advertise-address=$netk3s --node-ip=$netk3s --cluster-init --write-kubeconfig-mode 644" sh -s - 
+sudo curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --disable=traefik --flannel-backend=host-gw --tls-san=$netk3s --bind-address=$netk3s --advertise-address=$netk3s --node-ip=$netk3s --cluster-init --write-kubeconfig-mode 644" sh -s - 
 
 sudo cat /var/lib/rancher/k3s/server/node-token > tokenk3s
 
