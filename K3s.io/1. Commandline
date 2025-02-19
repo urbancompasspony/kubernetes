@@ -1,39 +1,20 @@
 >>> >>> >>> >>> >>> >>> 
 On Master
 
-$ sudo -i
-# mkdir -p /var/lib/rancher/k3s/server/manifests/
-# cat <<EOF > /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
-apiVersion: helm.cattle.io/v1
-kind: HelmChartConfig
-metadata:
-  name: traefik
-  namespace: kube-system
-spec:
-  valuesContent: |-
-    ports:
-       web:
-         exposedPort: 8088
-       websecure:
-         port: 8443
-         expose: true
-         exposedPort: 8443
-EOF
+netk3s="172.20.0.X"
+sudo curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --https-listen-port 7443 --disable=traefik --flannel-backend=host-gw --tls-san=$netk3s --bind-address=$netk3s --advertise-address=$netk3s --node-ip=$netk3s --cluster-init --write-kubeconfig-mode 644" sh -s - 
 
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --https-listen-port 7443 --disable=traefik --flannel-backend=host-gw --tls-san=172.20.0.X --bind-address=172.20.0.X --advertise-address=172.20.0.X --node-ip=172.20.0.X --cluster-init --write-kubeconfig-mode 644" sh -s - 
-
-sudo cat /var/lib/rancher/k3s/server/node-token
+sudo cat /var/lib/rancher/k3s/server/node-token > tokenk3s
 
 >>> >>> >>> >>> >>> >>> 
 Workers
 
 # Execute this to install the nodes as Multi-master (ONE AT TIME!)
 
-curl -sfL https://get.k3s.io | K3S_TOKEN="" sh -s server --flannel-backend=host-gw --server https://172.20.0.X:6443
+curl -sfL https://get.k3s.io | K3S_TOKEN="$tokenk3s" sh -s server --flannel-backend=host-gw --server https://$netk3s
 
 For SLOW WORKERS (RPi 3 - 1Gb RAM)
-sudo curl -sfL https://get.k3s.io | K3S_URL=https://MASTER:6443 \
-  K3S_TOKEN="" sh -
+sudo curl -sfL https://get.k3s.io | K3S_URL=https://$netk3s K3S_TOKEN="$tokenk3s" sh -
 
 Debug:
 journalctl -u k3s.service
