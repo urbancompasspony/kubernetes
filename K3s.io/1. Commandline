@@ -4,17 +4,17 @@ On Master
 netk3s="172.20.0.X"
 sudo curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --disable=traefik --flannel-backend=host-gw --tls-san=$netk3s --bind-address=$netk3s --advertise-address=$netk3s --node-ip=$netk3s --cluster-init --write-kubeconfig-mode 644" sh -s - 
 
-sudo cat /var/lib/rancher/k3s/server/node-token > tokenk3s
+sudo cat /var/lib/rancher/k3s/server/node-token
 
 >>> >>> >>> >>> >>> >>> 
 Workers
 
 # Execute this to install the nodes as Multi-master (ONE AT TIME!)
 
-curl -sfL https://get.k3s.io | K3S_TOKEN="$tokenk3s" sh -s server --flannel-backend=host-gw --server https://$netk3s
+curl -sfL https://get.k3s.io | K3S_TOKEN="" sh -s server --flannel-backend=host-gw --server https://172.20.0.X:6443
 
-For SLOW WORKERS (RPi 3 - 1Gb RAM)
-sudo curl -sfL https://get.k3s.io | K3S_URL=https://$netk3s K3S_TOKEN="$tokenk3s" sh -
+For SLOW WORKERS (RPi 3 ~1Gb RAM)
+sudo curl -sfL https://get.k3s.io | K3S_URL=https://172.20.0.X:6443 K3S_TOKEN="" sh -
 
 Debug:
 journalctl -u k3s.service
