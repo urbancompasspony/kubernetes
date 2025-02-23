@@ -1,1 +1,38 @@
 
+1) Instale o KubeVIP
+sudo kubectl apply -f https://kube-vip.io/manifests/rbac.yaml
+sudo kubectl apply -f https://kube-vip.io/manifests/daemonset.yaml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-vip
+  namespace: kube-system
+data:
+  config: |
+    vip: 192.168.1.240
+    interface: eth0
+    enableARP: true
+    enableBGP: false
+
+sudo kubectl apply -f kube-vip-config.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: meu-servico
+  namespace: default
+spec:
+  selector:
+    app: meu-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+sudo kubectl apply -f meu-servico.yaml
+
+sudo kubectl get pods -n kube-system -l app=kube-vip
+sudo kubectl get services -o wide
+
