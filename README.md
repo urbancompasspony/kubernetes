@@ -1,25 +1,6 @@
 # K3s.io
 The best way to get a cluster working through portainer.
 
-# CheatSheet
-
-sudo kubectl get nodes -o wide
-sudo kubectl get svc -o wide
-sudo kubectl get endpoints
-
-sudo kubectl get events
-sudo kubectl get pods -o wide
-sudo kubectl logs <POD_NAME>
-
-sudo kubectl apply -f ./my-manifest.yaml            # cria recurso(s)
-sudo kubectl apply -f ./my1.yaml -f ./my2.yaml      # cria a partir de vários arquivos
-sudo kubectl apply -f ./dir                         # cria recurso(s) em todos os arquivos de manifesto no diretório
-sudo kubectl apply -f https://git.io/vPieo          # cria recurso(s) a partir de URL
-sudo kubectl create deployment nginx --image=nginx  # inicia uma única instância do nginx
-
-sudo kubectl scale deployment pihole --replicas=3
-sudo kubectl set image deployment/pihole pihole=pihole/pihole:latest
-
 ## Redirecionar sem Traefik
 
 $ kubectl port-forward svc/pihole-service 8080:80
