@@ -1,0 +1,4 @@
+## Redirecionar sem Traefik
+
+$ kubectl port-forward svc/pihole-service 8080:80
+Pra desativar, utilize o Portainer.
