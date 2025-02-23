@@ -16,6 +16,10 @@ sudo kubectl create deployment nginx --image=nginx  # inicia uma única instânc
 
 sudo kubectl set image deployment/pihole pihole=pihole/pihole:latest
 
+sudo kubectl scale deployment pihole --replicas=3
+
+sudo kubectl get pods --all-namespaces --field-selector spec.nodeName=NODEHOSTNAME
+
 sudo kubectl scale --replicas=3 rs/foo                                 # Escala um replicaset chamado 'foo' para 3
 sudo kubectl scale --replicas=3 -f foo.yaml                            # Escala um recurso especificado em "foo.yaml" para 3
 sudo kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # Se o tamanho atual do deployment chamado mysql for 2, escala para 3
